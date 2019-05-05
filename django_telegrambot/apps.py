@@ -195,26 +195,26 @@ class DjangoTelegramBot(AppConfig):
                     DjangoTelegramBot.dispatchers.append(Dispatcher(bot, None, workers=0))
                     hookurl = '{}/{}/{}/'.format(webhook_site, webhook_base, token)
                     max_connections = b.get('WEBHOOK_MAX_CONNECTIONS', 40)
-                    setted = bot.setWebhook(
-                        hookurl,
-                        certificate=certificate,
-                        timeout=timeout,
-                        max_connections=max_connections,
-                        allowed_updates=allowed_updates
-                    )
                     webhook_info = bot.getWebhookInfo()
+                    if webhook_info.url != hookurl:
+                        setted = bot.setWebhook(
+                            hookurl,
+                            certificate=certificate,
+                            timeout=timeout,
+                            max_connections=max_connections,
+                            allowed_updates=allowed_updates
+                        )
                     real_allowed = webhook_info.allowed_updates if webhook_info.allowed_updates else ["ALL"]
 
                     bot.more_info = webhook_info
                     logger.info(
                         'Telegram Bot <{}> setting webhook [ {} ] max connections:{}' 
-                        'allowed updates:{} pending updates:{} : {}'.format(
+                        'allowed updates:{} pending updates:{}'.format(
                             bot.username,
                             webhook_info.url,
                             webhook_info.max_connections,
                             real_allowed,
                             webhook_info.pending_update_count,
-                            setted
                         )
                     )
 
