@@ -27,7 +27,7 @@ To use django-telegrambot in a app, create a telegrambot.py module in your app a
 
 
     def error(bot, update, error):
-        logger.warn('Update "%s" caused error "%s"' % (update, error))
+        logger.warning('Update "%s" caused error "%s"' % (update, error))
 
 
     def main():

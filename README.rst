@@ -165,7 +165,7 @@ Then use it in a project creating a module ``telegrambot.py`` in your app ::
 
 
         def error(bot, update, error):
-            logger.warn('Update "%s" caused error "%s"' % (update, error))
+            logger.warning('Update "%s" caused error "%s"' % (update, error))
 
 
         def main():

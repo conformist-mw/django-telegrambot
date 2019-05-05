@@ -48,7 +48,6 @@ class Command(BaseCommand):
         console.setFormatter(logging.Formatter('%(name)s - %(levelname)s - %(message)s'))
         logger.addHandler(console)
 
-
         bots_list = settings.DJANGO_TELEGRAMBOT.get('BOTS', [])
         b = None
         for bot_set in bots_list:
@@ -67,11 +66,13 @@ class Command(BaseCommand):
         read_latency = b.get('POLL_READ_LATENCY', 2.)
 
         self.stdout.write("Run polling...")
-        updater.start_polling(poll_interval=poll_interval,
-                      timeout=timeout,
-                      clean=clean,
-                      bootstrap_retries=bootstrap_retries,
-                      read_latency=read_latency,
-                      allowed_updates=allowed_updates)
+        updater.start_polling(
+            poll_interval=poll_interval,
+            timeout=timeout,
+            clean=clean,
+            bootstrap_retries=bootstrap_retries,
+            read_latency=read_latency,
+            allowed_updates=allowed_updates
+        )
         self.stdout.write("the bot is started and runs until we press Ctrl-C on the command line.")
         updater.idle()
